@@ -6,7 +6,7 @@
         @foreach($roles as $role)
 
             @endforeach
-        <form method="post" action="{{ route('admin.users.store'  ) }}" class="form-group">
+        <form method="post" action="{{ route('admin.users.store'  ) }}" class="form-group" enctype="multipart/form-data" files="true">
             {{ csrf_field() }}
 
             <label name="name">Name:</label>
@@ -36,15 +36,11 @@
             <label name="password">Password:</label>
             <input type="password" class="form-control" name="password">
 
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">Upload</span>
-                </div>
                 <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="inputGroupFile01" name="file">
-                    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                    <input type="file" class="custom-file-input" id="photo_id" name="photo_id">
+                    <label class="custom-file-label" for="inputGroupFile01" name="photo_id">Choose file</label>
                 </div>
-            </div>
+
 
             <input class="btn btn-primary" type="submit" value="Create user">
             </form>
