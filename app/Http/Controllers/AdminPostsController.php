@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Http\Requests\PostCreateRequest;
 use App\Photo;
 use App\Post;
+use Illuminate\Console\Scheduling\CallbackEvent;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -34,9 +36,9 @@ class AdminPostsController extends Controller
     public function create()
     {
         //
-        $categories = Post::all();
+        $categories = Category::all();
 
-        return view('admin.posts.create', compact('categories'));
+        return view('admin.posts.create')->withCategories($categories);
     }
 
     /**

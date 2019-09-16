@@ -14,8 +14,9 @@
                 <label name="category_id">Category:</label>
                 <select class="form-control" name="category_id">
                     <option value="null">Choose</option>
-                        <option value="1">PHP</option>
-                        <option value="2">JavaScript</option>
+                    @foreach($categories as $category)
+                        <option value="{{$category->id}}">{{$category->name}}</option>
+                    @endforeach
                 </select>
 
                 <div class="custom-file">

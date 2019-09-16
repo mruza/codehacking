@@ -11,7 +11,8 @@
                     <th>Id</th>
                     <th>Photo</th>
                     <th>Owner</th>
-                    <th>Category</th>
+                    <th>Category
+                    </th>
                     <th>Title</th>
                     <th>Body</th>
                     <th>Created at</th>
@@ -24,7 +25,7 @@
                     <td>{{$post->id}}</td>
                     <td><img height="50" src="{{$post->photo ? $post->photo->file : 'https://via.placeholder.com/150 '}}"></td>
                     <td>{{$post->user->name}}</td>
-                    <td>{{$post->category_id}}</td>
+                    <td>{{$post->category ? $post->category->name : 'Uncategorized'}}</td>
                     <td>{{$post->title}}</td>
                     <td>{{str_limit($post->body, $limit="50", $end = "...")}}</td>
                     <td>{{$post->created_at->diffForHumans()}}</td>
@@ -36,5 +37,3 @@
         </div>
     </div>
 @endsection
-
-http://codehacking.test/images/1568632103man1.jpeg
