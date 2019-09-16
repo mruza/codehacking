@@ -8,17 +8,17 @@
             {{ csrf_field() }}
             <input type="hidden" name="_method" value="PUT">
             <label name="name">Name of category:</label>
-            <input type="text" class="form-control" name="name">
+            <input type="text" class="form-control" name="name" value="{{$category->name}}">
 
             <input class="btn btn-primary" type="submit" value="Update category">
         </form>
     </div>
 
     <div class="col-sm-6">
-        <form class="pull-right" method="POST" action="{{ route('admin.posts.destroy', $post->id) }}">
+        <form class="pull-right" method="POST" action="{{ route('admin.categories.destroy', $category->id) }}">
             {{ csrf_field() }}
             <input type="hidden" name="_method" value="DELETE">
-            <input class="btn btn-danger" type="submit" value="Delete post">
+            <input class="btn btn-danger" type="submit" value="Delete category">
         </form>
     </div>
 
