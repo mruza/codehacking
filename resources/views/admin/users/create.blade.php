@@ -3,9 +3,6 @@
 @section('content')
 
     <h1>Create user</h1>
-        @foreach($roles as $role)
-
-            @endforeach
         <form method="post" action="{{ route('admin.users.store'  ) }}" class="form-group" enctype="multipart/form-data" files="true">
             {{ csrf_field() }}
 
