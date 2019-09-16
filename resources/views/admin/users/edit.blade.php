@@ -34,8 +34,6 @@
             @endforeach
         </select>
 
-
-
         <label for="is_active">Status</label>
         <select class="form-control" name="is_active">
             <option value="0"
@@ -60,8 +58,14 @@
         </div>
 
 
-        <input class="btn btn-primary" type="submit" value="Update user">
+        <input class="btn btn-primary pull-left" type="submit" value="Update user">
     </form>
+
+            <form class="pull-right" method="POST" action="{{ route('admin.users.destroy', $user->id) }}">
+                {{ csrf_field() }}
+                <input type="hidden" name="_method" value="DELETE">
+                    <input class="btn btn-danger" type="submit" value="Delete user">
+                </form>
 
 
     </div>
