@@ -132,7 +132,8 @@ class AdminUsersController extends Controller
 
         Session::flash('updated_user', 'The user ahs been updated');
 
-        return redirect('/admin/users');
+//        return redirect('/admin/users');
+        return $request->all();
     }
 
     /**
