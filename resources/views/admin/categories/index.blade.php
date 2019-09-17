@@ -4,7 +4,7 @@
     <h1>Categories</h1>
 
     <div class="col-sm-6">
-        <form method="post" action="{{ route('admin.categories.store'  ) }}" enctype="multipart/form-data">
+        <form method="post" action="{{route('admin.categories.store') }}" enctype="multipart/form-data">
             {{ csrf_field() }}
 
              <label name="name">Name of category:</label>

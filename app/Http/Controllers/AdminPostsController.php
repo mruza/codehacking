@@ -151,4 +151,10 @@ class AdminPostsController extends Controller
             ->with('danger', 'Post has been deleted');
 
     }
+    public function post(){
+
+        $post = Post::findOrFail(1);
+
+        return view('post', compact('post'));
+    }
 }
