@@ -42,7 +42,8 @@ class AdminCategoriesController extends Controller
         //
         Category::create($request->all());
 
-        return redirect('/admin/categories');
+        return redirect('/admin/categories')
+            ->with('success', 'Category has been created');
     }
 
     /**
@@ -82,7 +83,8 @@ class AdminCategoriesController extends Controller
     {
         //
         Category::findOrFail($id)->update($request->all());
-        return redirect('/admin/categories');
+        return redirect('/admin/categories')
+            ->with('success', 'Category has been updated');
     }
 
     /**
@@ -95,7 +97,9 @@ class AdminCategoriesController extends Controller
     {
         //
         Category::findOrFail($id)->delete();
-        return redirect('/admin/categories');
+
+        return redirect('/admin/categories')
+            ->with('danger', 'Category has been deleted');
 
     }
 }

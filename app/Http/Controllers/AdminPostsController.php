@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class AdminPostsController extends Controller
 {
@@ -38,7 +39,8 @@ class AdminPostsController extends Controller
         //
         $categories = Category::all();
 
-        return view('admin.posts.create', compact('categories'))->withCategories($categories);
+        return view('admin.posts.create', compact('categories'))
+            ->withCategories($categories);
     }
 
     /**
@@ -67,7 +69,8 @@ class AdminPostsController extends Controller
 
         $user->posts()->create($input);
 
-        return redirect('/admin/posts');
+        return redirect('/admin/posts')
+            ->with('success', 'Post has been created');
 
     }
 
@@ -124,7 +127,8 @@ class AdminPostsController extends Controller
 
         Auth::user()->posts()->whereId($id)->first()->update($input);
 
-        return redirect('/admin/posts');
+        return redirect('/admin/posts')
+            ->with('success', 'Post has been updated');
 
     }
 
@@ -143,7 +147,8 @@ class AdminPostsController extends Controller
 
         $post->delete();
 
-        return redirect('/admin/posts');
+        return redirect('/admin/posts')
+            ->with('danger', 'Post has been deleted');
 
     }
 }

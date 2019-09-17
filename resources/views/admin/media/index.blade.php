@@ -18,6 +18,13 @@
             <td>{{$photo->id}}</td>
             <td><img src="{{$photo->file}}" height="50"> </td>
             <td>{{$photo->created_at ? $photo->created_at : 'no date'}}</td>
+            <td>
+                <form class="pull-right" method="POST" action="{{ route('admin.media.destroy', $photo->id) }}">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input class="btn btn-danger" type="submit" value="Delete">
+                </form>
+            </td>
           </tr>
             @endforeach
         @endif

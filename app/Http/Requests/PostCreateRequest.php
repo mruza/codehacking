@@ -27,7 +27,6 @@ class PostCreateRequest extends Request
             //
             'title'       =>'required',
             'category_id' =>'required',
-            'photo-id'    =>'required',
             'body'        => 'required'
         ];
     }

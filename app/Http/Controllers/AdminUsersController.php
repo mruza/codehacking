@@ -74,7 +74,7 @@ class AdminUsersController extends Controller
 
         Session::flash('created_user', 'The user has been created');
 
-        return redirect('/admin/users');
+        return redirect('/admin/users')->with('success', 'User has been created');
     }
 
     /**
@@ -130,10 +130,8 @@ class AdminUsersController extends Controller
 
         $user->update($input);
 
-        Session::flash('updated_user', 'The user ahs been updated');
+        return redirect('/admin/users')->with('success', 'User has been updated');
 
-//        return redirect('/admin/users');
-        return $request->all();
     }
 
     /**
@@ -150,9 +148,7 @@ class AdminUsersController extends Controller
 
         $user->delete();
 
-        Session::flash('deleted_user', 'The user has been deleted');
-
-        return redirect('/admin/users');
+        return redirect('/admin/users')->with('danger', 'User has been deleted');
     }
 
 }

@@ -6,6 +6,7 @@ use App\Photo;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Session;
 
 class AdminMediasController extends Controller
 {
@@ -19,6 +20,7 @@ class AdminMediasController extends Controller
     public function create(){
 
         return view('admin.media.create');
+
     }
 
     public function store(Request $request){
@@ -30,5 +32,19 @@ class AdminMediasController extends Controller
         $file->move('images', $name);
 
         Photo::create(['file'=>$name]);
+
+        return redirect('/admin/media')
+            ->with('success', 'Photo has been uploaded');
+    }
+    public function destroy($id){
+
+        $photo = Photo::findOrFail($id);
+
+        unlink(public_path() . $photo->file);
+
+        $photo->delete();
+
+//        return redirect('admin/media')->with('danger', 'Photo ' . substr($photo->file, 8) .' has been deleted');
+
     }
 }
