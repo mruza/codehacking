@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Comment;
 use App\Http\Requests\PostCreateRequest;
 use App\Photo;
 use App\Post;
@@ -151,10 +152,12 @@ class AdminPostsController extends Controller
             ->with('danger', 'Post has been deleted');
 
     }
-    public function post(){
+    public function post($id){
 
-        $post = Post::findOrFail(1);
+        $post = Post::findOrFail($id);
 
-        return view('post', compact('post'));
+        $comments = $post->comments()->whereIsActive(1)->get();
+
+        return view('post', compact('post'))->withComments($comments);
     }
 }

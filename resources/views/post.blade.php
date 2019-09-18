@@ -31,7 +31,7 @@
 
 
     <hr>
-
+    @if(Auth::check())
     <!-- Blog Comments -->
 
     <!-- Comments Form -->
@@ -46,48 +46,70 @@
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
-
+@endif
     <hr>
-
+@if(count($comments) > 0)
     <!-- Posted Comments -->
-
+    @foreach($comments as $comment)
     <!-- Comment -->
     <div class="media">
         <a class="pull-left" href="#">
-            <img class="media-object" src="http://placehold.it/64x64" alt="">
+            <img height="64" class="media-object" src="{{$comment->photo}}" alt="">
         </a>
         <div class="media-body">
-            <h4 class="media-heading">Start Bootstrap
-                <small>August 25, 2014 at 9:30 PM</small>
+            <h4 class="media-heading">{{$comment->author}}
+                <small>{{$comment->created_at->diffForHumans()}}</small>
             </h4>
-            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-        </div>
-    </div>
+            {{$comment->body}}
+            <button class="toogle-reply btn btn-primary pull-right">Reply</button>
+            @if($comment->replies)
+                @foreach($comment->replies as $reply)
+                    @if($reply->is_active == 1)
+                    <!-- Nested Comment -->
+                        <div class="media">
+                            <a class="pull-left" href="#">
+                                <img height="64" class="media-object" src="{{$reply->photo}}" alt="">
+                            </a>
+                            <div class="media-body">
+                                <h4 class="media-heading">{{$reply->author}}
+                                    <small>{{$reply->created_at->diffForHumans()}}</small>
+                                </h4>
+                                {{$reply->body}}
+                            </div>
 
-    <!-- Comment -->
-    <div class="media">
-        <a class="pull-left" href="#">
-            <img class="media-object" src="http://placehold.it/64x64" alt="">
-        </a>
-        <div class="media-body">
-            <h4 class="media-heading">Start Bootstrap
-                <small>August 25, 2014 at 9:30 PM</small>
-            </h4>
-            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-            <!-- Nested Comment -->
-            <div class="media">
-                <a class="pull-left" href="#">
-                    <img class="media-object" src="http://placehold.it/64x64" alt="">
-                </a>
-                <div class="media-body">
-                    <h4 class="media-heading">Nested Start Bootstrap
-                        <small>August 25, 2014 at 9:30 PM</small>
-                    </h4>
-                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                </div>
-            </div>
-            <!-- End Nested Comment -->
+                            <div class="comment-reply-container">
+
+                             <div class="comment-reply col-sm-8" style="display: none">
+                                <form role="form" action="{{route('admin.comment.replies.store')}}" method="POST" enctype="multipart/form-data">
+                                    {{ csrf_field() }}
+                                    <div class="form-group">
+                                        <input type="hidden" name="post_id" value="{{$reply->id}}">
+                                        <textarea class="form-control" rows="1" name="body"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Reply</button>
+                                </form>
+                             </div>
+                        </div>
+                        <!-- End Nested Comment -->
+                 </div>
+                    @else
+                        <h1 class="text-center">No replies</h1>
+                    @endif
+            @endforeach
+                @endif
         </div>
     </div>
+    @endforeach
+@endif
+@endsection
+
+@section('scripts')
+
+    <script>
+        $(" .toogle-reply").click(function () {
+
+            $(this).next().slideToggle("fast");
+        })
+    </script>
 
     @endsection
